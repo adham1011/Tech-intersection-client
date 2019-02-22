@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
 import { Provider } from 'react-redux';
 import store from './store';
 import Header from './components/Header/Header';
+
+import './App.css';
 
 class App extends Component {
 	render() {

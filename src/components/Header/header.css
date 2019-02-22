@@ -1,4 +1,4 @@
-section:first-of-type {
+.main {
 	background-image: url('desk.jpg');
 	background-position: center;
 	background-repeat: no-repeat;
@@ -7,8 +7,20 @@ section:first-of-type {
 	height: 500px;
 }
 
+.main::after {
+	content: '';
+	width: 100%;
+	height: 200px;
+	background: url('bubble_back.png') left bottom no-repeat;
+	background-size: cover;
+	position: absolute;
+	z-index: 15;
+	top: 352px;
+	display: inline-block;
+}
+
 .cover {
-	background-image: linear-gradient(to right, #2f2404a1, #aba34a9e);
+	background-image: linear-gradient(to right, #44034cc7, #4aa7ab9e);
 	position: absolute;
 	width: 100%;
 	top: 0;
@@ -16,10 +28,13 @@ section:first-of-type {
 	z-index: 10;
 	height: 500px;
 }
-
 .cover > p {
-	width: 30%;
-	position: absolute;
-	top: 170px;
-	right: 180px;
+	margin: 10% 5%;
+	float: right;
+	font-size: 2.75rem;
+}
+.cover::after {
+	content: '';
+	display: table;
+	clear: both;
 }
