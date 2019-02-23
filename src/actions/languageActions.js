@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { URL } from './consts';
+import { URL } from '../consts';
 
-import { GET_ERRORS, CLEAR_ERRORS, GET_LANGUAGE, LANGUAGE_LOADING, GET_LANGUAGES } from './types';
+import { GET_LANGUAGE, LANGUAGE_LOADING, GET_LANGUAGES } from './types';
 
 //gets Languages
 export const getLanguages = () => (dispatch) => {

@@ -8,13 +8,16 @@ class Header extends Component {
 	render() {
 		return (
 			<header>
-				<section className="main mb-3">
+				<div className="main mb-3">
 					<div className="cover">
 						<p className="text-center text-white text-uppercase">
 							<strong>Discover</strong> What<br /> Technologies Fit Your<br />
 							<strong>PROJECT</strong>
 						</p>
 					</div>
+				</div>
+				<section className="cards-section">
+					<Topfour />
 				</section>
 			</header>
 		);
