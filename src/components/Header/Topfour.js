@@ -103,9 +103,11 @@ class Topfour extends Component {
 }
 Topfour.propTypes = {
 	getLanguages: PropTypes.func.isRequired,
-	languages: PropTypes.object.isRequired
+	languages: PropTypes.array.isRequired,
+	sum: PropTypes.object.isRequired
 };
 const mapStatetoProps = (state) => ({
-	languages: state.languages.languages
+	languages: state.languages.languages,
+	sum: state.languages.sum
 });
 export default connect(mapStatetoProps, { getLanguages })(Topfour);
