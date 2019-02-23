@@ -7,8 +7,8 @@ import Topfour from './Topfour';
 class Header extends Component {
 	render() {
 		return (
-			<header>
-				<div className="main mb-3">
+			<header className="mb-5">
+				<div className="main ">
 					<div className="cover">
 						<p className="text-center text-white text-uppercase">
 							<strong>Discover</strong> What<br /> Technologies Fit Your<br />

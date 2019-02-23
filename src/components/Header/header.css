@@ -60,3 +60,21 @@
 	height: 40px;
 	top: 37%;
 }
+
+.progress-bar {
+	position: absolute;
+	left: 37.5%;
+	top: 105px;
+	width: 25%;
+	background-color: #3c3c3c;
+	border-radius: 50%;
+}
+
+/*breakPonts*/
+
+@media (max-width: 991.98px) {
+	.cards-section {
+		position: relative;
+		top: 0;
+	}
+}
