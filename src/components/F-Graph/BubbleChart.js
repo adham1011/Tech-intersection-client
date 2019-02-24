@@ -5,6 +5,20 @@ import { getLanguages } from "../../actions/languageActions";
 import { Chart } from "react-google-charts";
 
 class BubbleChart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      graphData: [["Language", "X", "Y", "Questions"]],
+      flag: 0
+    };
+
+    this.onChange = this.onChange.bind(this);
+  }
+  onChange = values => {
+    this.setState({ values });
+  };
+
+  componentDidMount() {}
   render() {
     // const array = [ [ 'Year' ], [ '2013' ], [ '2014' ], [ '2015' ], [ '2016' ], [ '2017' ], [ '2018' ] ];
 
@@ -20,7 +34,7 @@ class BubbleChart extends Component {
     //  	}
     //  });
 
-    const array = [["Language", "X", "Y", "Questions"], ["Nidal", 5, 3, 30]];
+    /*   const array = [["Language", "X", "Y", "Questions"], ["Nidal", 5, 3, 30]];
     var contnt = this.props.languages.map(language => {
       if (language.count > 30000) {
         array.push([
@@ -31,8 +45,24 @@ class BubbleChart extends Component {
         ]);
       }
     });
+*/
 
-    console.log(array);
+    //IMPORTNAT LINE since every time we call the render we dont
+    //want to push on top of old data we clear and then push
+    this.state.graphData = [["Language", "X", "Y", "Questions"]];
+    this.props.languages.map(language => {
+      if (language.count > 30000) {
+        this.state.graphData.push([
+          language.source,
+          language.years[this.props.values[0]] -
+            language.years[this.props.values[1]],
+          language.count,
+          language.count
+        ]);
+        console.log(this.state.graphData);
+      }
+    });
+
     return (
       <div className="col-12 ">
         <Chart
@@ -41,19 +71,7 @@ class BubbleChart extends Component {
           height={"700px"}
           chartType="BubbleChart"
           loader={<div>Loading Chart</div>}
-          data={array}
-          // 	[ 'Source', '#2013', '#2014', '#2015', '#2016' ],
-          // 	[ 'CAN', 80.66, 1.67, 'North America', 33739900 ],
-          // 	[ 'DEU', 79.84, 1.36, 'Europe', 81902307 ],
-          // 	[ 'DNK', 78.6, 1.84, 'Europe', 5523095 ],
-          // 	[ 'EGY', 72.73, 2.78, 'Middle East', 79716203 ],
-          // 	[ 'GBR', 80.05, 2, 'Europe', 61801570 ],
-          // 	[ 'IRN', 72.49, 1.7, 'Middle East', 73137148 ],
-          // 	[ 'IRQ', 68.09, 4.77, 'Middle East', 31090763 ],
-          // 	[ 'ISR', 81.55, 2.96, 'Middle East', 7485600 ],
-          // 	[ 'RUS', 68.6, 1.54, 'Europe', 141850000 ],
-          // 	[ 'USA', 78.09, 2.05, 'North America', 307007000 ]
-          // }
+          data={this.state.graphData}
           options={{
             title:
               "Correlation between life expectancy, fertility rate " +
@@ -70,7 +88,8 @@ class BubbleChart extends Component {
 }
 
 BubbleChart.propTypes = {
-  languages: PropTypes.array.isRequired
+  languages: PropTypes.array.isRequired,
+  values: PropTypes.array.isRequired
 };
 const mapStatetoProps = state => ({
   languages: state.languages.languages

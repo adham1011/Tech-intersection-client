@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Filter.css";
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
+import { ECANCELED } from "constants";
 
 const sliderStyle = {
   // Give the slider some width
@@ -105,8 +106,23 @@ export function Handle({
   );
 }
 
-export default class Filter extends Component {
+class Filter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        values: [2013, 2018]
+    };
+    
+    this.onChange = this.onChange.bind(this);
+  }
+  onChange = (values) => {
+    this.setState({ values });
+    console.log(values);
+  };
+
+
   render() {
+   
     return (
       <div className="row">
         <div className="col-12">
@@ -117,6 +133,7 @@ export default class Filter extends Component {
               step={1}
               mode={2}
               values={[2013, 2018]}
+              onUpdate={this.onChange}
             >
               <Rail>
                 {(
@@ -166,3 +183,5 @@ export default class Filter extends Component {
     );
   }
 }
+
+export default Filter;
