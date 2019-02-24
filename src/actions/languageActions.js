@@ -42,16 +42,9 @@ export const getLanguage = (id) => (dispatch) => {
 };
 
 //set loading state
-
 export const setLanguageLoading = () => {
 	return {
 		type: LANGUAGE_LOADING
 	};
 };
 
-// //clear errors
-// export const clearErrors = () => {
-// 	return {
-// 		type: CLEAR_ERRORS
-// 	};
-// };

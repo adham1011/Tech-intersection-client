@@ -12,12 +12,12 @@ export default class Fgrpaph extends Component {
 						<div className="col-12">
 							<h6 className="text-secondry text-uppercase font-weight-bold">&Delta; By the years</h6>
 						</div>
-						</div>
-						<Filter />
-						<div className="row">
+					</div>
+					<Filter />
+					<div className="row">
 						<BubbleCharts />
-						</div>
-					
+					</div>
+
 				</div>
 			</section>
 		);
