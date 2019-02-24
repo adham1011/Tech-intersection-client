@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL } from '../consts';
+import { URL } from './consts';
 
 import { GET_LANGUAGE, LANGUAGE_LOADING, GET_LANGUAGES } from './types';
 
