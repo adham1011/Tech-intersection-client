@@ -17,7 +17,6 @@ export default class Fgrpaph extends Component {
 					<div className="row">
 						<BubbleCharts />
 					</div>
-
 				</div>
 			</section>
 		);

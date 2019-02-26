@@ -3,7 +3,9 @@ import './Filter.css';
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
 import { ECANCELED } from 'constants';
 import './Fgraph.css';
-import BubbleCharts from './BubbleChart';
+import BubbleChart from './BubbleChart';
+import LineChart from './LineChart';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 const sliderStyle = {
 	// Give the slider some width
@@ -128,9 +130,9 @@ class Filter extends Component {
 							<h6 className="text-secondry text-uppercase font-weight-bold">&Delta; By the years</h6>
 						</div>
 					</div>
-					<div className="row">
-						<div className="col-12">
-							<div className="bg-white">
+					<div className="row sticky-top">
+						<div className="col-12 mb-2">
+							<div className="bg-white shadow">
 								<Slider
 									rootStyle={sliderStyle} // inline styles for the outer div. Can also use className prop.
 									domain={[ 2013, 2018 ]}
@@ -185,7 +187,8 @@ class Filter extends Component {
 						</div>
 					</div>
 					<div className="row">
-						<BubbleCharts values={this.state.values} />
+						<BubbleChart values={this.state.values} />
+						<LineChart values={this.state.values} />
 					</div>
 				</div>
 			</section>
