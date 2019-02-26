@@ -48,7 +48,7 @@ export const getTagsByLanguage = (name) => (dispatch) => {
 		.then((result) => {
 			dispatch({
 				type: GET_LANGUAGE_BY_TAGS,
-				payload: result.data
+				payload: result.data[0]
 			});
 		})
 		.catch((err) => {

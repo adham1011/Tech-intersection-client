@@ -20,7 +20,8 @@ class SecondMain extends Component {
 	render() {
 		const { text } = this.state;
 		var data = [].concat(this.props.language['year'])[0];
-		console.log('bla');
+		console.log(data);
+		// console.log('bla');
 		// var array = data;
 		/*message for mahmoud*/
 
