@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLanguages } from '../../actions/languageActions';
 import CircularProgressbar from 'react-circular-progressbar';
+import LangModal from './LangModal';
 
 class Topfour extends Component {
 	constructor(props) {
@@ -31,27 +32,34 @@ class Topfour extends Component {
 		}
 	}
 	printYear(elements) {
-		const percentage = 66;
+		let year = this.state.year;
+		let sum = this.props.sum[year];
 		const items = []
 			.concat(elements)
 			.sort((a, b) => b.years[this.state.year] - a.years[this.state.year])
 			.slice(0, 4)
 			.map((item, index) => (
-				<div key={[ index + item.count ].join()} className="col-12 col-md-6 col-lg-3 mb-3">
+				<div key={item._id} className="col-12 col-md-6 col-lg-3 mb-3">
 					<div className="card shadow border-0">
 						<div className="card-top">
 							<h4 className="text-white text-center text-uppercase font-weight-bold">{item.source}</h4>
 						</div>
-						<div className="card-body">
+						<div className="card-body pt-5 pt-lg-3">
 							<div className="progress-bar">
-								<CircularProgressbar percentage={percentage} text={`${percentage}%`} />
+								<CircularProgressbar
+									percentage={parseInt(item.years[year] / sum * 100)}
+									text={`${parseInt(item.years[year] / sum * 100)}%`}
+								/>
 							</div>
-							<h5 className="card-title">{item.source}</h5>
+							<h5 className="h6 font-weight-bold mt-5 mt-md-3 text-uppercase text-dark">
+								# all over the years
+							</h5>
+							<h6 className="card-subtitle mb-2 text-muted">{item.count}</h6>
+
+							<h5 className="h6 font-weight-bold mt-5 mt-md-3 text-uppercase text-dark">
+								# {this.state.year}
+							</h5>
 							<h6 className="card-subtitle mb-2 text-muted">{item.years[this.state.year]}</h6>
-							<p className="card-text">testing</p>
-							<a href="#" className="card-link">
-								{item.source}
-							</a>
 						</div>
 					</div>
 				</div>
@@ -103,9 +111,11 @@ class Topfour extends Component {
 }
 Topfour.propTypes = {
 	getLanguages: PropTypes.func.isRequired,
-	languages: PropTypes.object.isRequired
+	languages: PropTypes.array.isRequired,
+	sum: PropTypes.object.isRequired
 };
 const mapStatetoProps = (state) => ({
-	languages: state.languages.languages
+	languages: state.languages.languages,
+	sum: state.languages.sum
 });
 export default connect(mapStatetoProps, { getLanguages })(Topfour);

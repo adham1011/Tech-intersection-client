@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL } from '../consts';
+import { URL } from './consts';
 
 import { GET_LANGUAGE, LANGUAGE_LOADING, GET_LANGUAGES } from './types';
 
@@ -42,16 +42,9 @@ export const getLanguage = (id) => (dispatch) => {
 };
 
 //set loading state
-
 export const setLanguageLoading = () => {
 	return {
 		type: LANGUAGE_LOADING
 	};
 };
 
-// //clear errors
-// export const clearErrors = () => {
-// 	return {
-// 		type: CLEAR_ERRORS
-// 	};
-// };

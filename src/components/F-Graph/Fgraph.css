@@ -1,10 +1,10 @@
 .graph-main {
-	position: relative;
-	top: 225px;
+  position: relative;
+  top: 225px;
 }
 
 @media (max-width: 991.98px) {
-	.graph-main {
-		top: 0;
-	}
+  .graph-main {
+    top: 0;
+  }
 }

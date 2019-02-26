@@ -5,7 +5,22 @@ import Bubble from './newback.png';
 import Topfour from './Topfour';
 
 class Header extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			open: false,
+			checked: ''
+		};
+	}
+	// onOpenModal(event) {
+	// 	console.log('here');
+	// 	this.setState({
+	// 		open: true
+	// 	});
+	// }
 	render() {
+		// this.setState({ open: this.props.open });
+		// console.log(this.props);
 		return (
 			<header className="mb-5">
 				<div className="main ">
