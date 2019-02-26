@@ -1,11 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTagsByLanguage } from '../../actions/languageActions';
 
 import AutoComplete from '../AutoComplete';
 
 class SecondMain extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			text: ''
+		};
+		this.selected = this.selected.bind(this);
+	}
+	selected(value) {
+		this.setState({ text: value });
+		this.props.getTagsByLanguage(value);
+	}
 	render() {
+		const { text } = this.state;
+		var data = [].concat(this.props.language['year'])[0];
+		console.log('bla');
+		// var array = data;
+		/*message for mahmoud*/
+
+		//#you can see what happening here !!! the thing is weird
+		//# you can add tags.sort((a, b) => b.hits - a.hits).slice(0,21) after the search query in service,
+		//much better than to handle this in the client, try to print (data) and you can see that u can't track it
+
 		return (
 			<section className="graph-main my-5">
 				<div className="container">
@@ -14,9 +36,16 @@ class SecondMain extends Component {
 							<h6 className="text-secondry text-uppercase font-weight-bold">
 								Programming Languages intersections
 							</h6>
+							<p>
+								The section is made to understand how the tags from same language interact with each
+								other.
+							</p>
 						</div>
 						<div className="col-4 mx-auto">
-							<AutoComplete items={this.props.languages.map((lang) => lang.source)} />
+							<AutoComplete
+								items={this.props.languages.map((lang) => lang.source)}
+								selected={this.selected}
+							/>
 						</div>
 					</div>
 				</div>
@@ -25,10 +54,12 @@ class SecondMain extends Component {
 	}
 }
 SecondMain.propTypes = {
-	languages: PropTypes.array.isRequired
-	// values: PropTypes.array.isRequired
+	getTagsByLanguage: PropTypes.func.isRequired,
+	languages: PropTypes.array.isRequired,
+	language: PropTypes.object
 };
 const mapStatetoProps = (state) => ({
-	languages: state.languages.languages
+	languages: state.languages.languages,
+	language: state.languages.language
 });
-export default connect(mapStatetoProps, {})(SecondMain);
+export default connect(mapStatetoProps, { getTagsByLanguage })(SecondMain);

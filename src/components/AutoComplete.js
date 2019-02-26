@@ -27,6 +27,7 @@ class AutoComplete extends Component {
 			text: value,
 			suggestions: []
 		}));
+		this.props.selected(value);
 	}
 
 	renderSuggestions() {
