@@ -20,32 +20,6 @@ class BubbleChart extends Component {
 
   componentDidMount() {}
   render() {
-    // const array = [ [ 'Year' ], [ '2013' ], [ '2014' ], [ '2015' ], [ '2016' ], [ '2017' ], [ '2018' ] ];
-
-    //  var contnt = this.props.languages.map((language) => {
-    //  	if (language.count > 30000) {
-    //  		array[0].push(language.source);
-    //  		array[1].push(language.years['2013']);
-    //  		array[2].push(language.years['2014']);
-    //  		array[3].push(language.years['2015']);
-    //  		array[4].push(language.years['2016']);
-    //  		array[5].push(language.years['2017']);
-    //  		array[6].push(language.years['2018']);
-    //  	}
-    //  });
-
-    /*   const array = [["Language", "X", "Y", "Questions"], ["Nidal", 5, 3, 30]];
-    var contnt = this.props.languages.map(language => {
-      if (language.count > 30000) {
-        array.push([
-          language.source,
-          language.years[2018] - language.years[2013],
-          language.count,
-          language.count
-        ]);
-      }
-    });
-*/
 
     //IMPORTNAT LINE since every time we call the render we dont
     //want to push on top of old data we clear and then push
@@ -54,8 +28,8 @@ class BubbleChart extends Component {
       if (language.count > 30000) {
         this.state.graphData.push([
           language.source,
-          language.years[this.props.values[0]] -
-            language.years[this.props.values[1]],
+          language.years[this.props.values[1]] -
+          language.years[this.props.values[0]],
           language.count,
           language.count
         ]);
@@ -77,7 +51,8 @@ class BubbleChart extends Component {
               "Correlation between life expectancy, fertility rate " +
               "and population of some world countries (2010)",
             hAxis: { title: "Life Expectancy" },
-            vAxis: { title: "Fertility Rate" },
+			vAxis: { title: "Fertility Rate" },
+			colorAxis: { colors: [ '#7FB1B4','#7B7C98','#766A8E','#6D4679'] },
             bubble: { textStyle: { fontSize: 11 } }
           }}
           rootProps={{ "data-testid": "1" }}
