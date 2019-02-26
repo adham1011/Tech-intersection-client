@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 //import Fgraph from "./components/F-Graph/Fgrpaph";
 import Filter from './components/F-Graph/mainBubble';
 import SecondMain from './components/S-Graph/SecondMain';
+import Intersection from './components/T-Grapgh/Intersection';
 import './App.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
 					<Header />
 					<Filter />
 					<SecondMain />
+					<Intersection />
 				</div>
 			</Provider>
 		);

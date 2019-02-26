@@ -1,0 +1,113 @@
+#container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.dot {
+  position: absolute;
+  left: calc(50% - 10px);
+  top: calc(50% - 10px);
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+}
+
+#mover {
+  animation: pedal1 0.5s linear infinite;
+}
+
+.circle {
+  position: absolute;
+  left: calc(50% - 75px);
+  top: calc(50% - 75px);
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+  border: 1px solid red;
+}
+
+#left {
+  left: calc(50% - 75px - 50px);
+}
+
+#right {
+  left: calc(50% - 75px + 50px);
+}
+
+/* arccos(50/75) = 48deg */
+@keyframes pedal1 {
+  0% {
+    transform: translateX(50px) rotate(48deg) translateX(-75px);
+  }
+  50% {
+    transform: translateX(50px) rotate(-48deg) translateX(-75px);
+  }
+  51% {
+    transform: translateX(-50px) rotate(48deg) translateX(75px);
+  }
+  100% {
+    transform: translateX(-50px) rotate(-48deg) translateX(75px);
+  }
+}
+
+.textSize {
+  font-size: 40px;
+}
+
+.flex_conatiner {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+/* Close Button */
+
+[class*="close-"] {
+  color: #777;
+  font: 24px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+  background: transparent;
+  border: none;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.close-thik:hover {
+  text-decoration: underline;
+}
+
+.close-thik:after {
+  content: "✖"; /* UTF-8 symbol */
+}
+
+/* Dialog */
+
+.dialog {
+  font: 28px/100% arial, sans-serif;
+  background: whitesmoke;
+  border: 0.5px solid rgb(233, 233, 233);
+  border-radius: 5px;
+  float: left;
+  height: 70px;
+  margin: 20px;
+  position: relative;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.not_editable{
+   visibility: hidden;
+}

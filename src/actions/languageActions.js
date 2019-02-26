@@ -59,6 +59,26 @@ export const getTagsByLanguage = (name) => (dispatch) => {
 		});
 };
 
+export const getLanguageTags = (Language) => (dispatch) => {
+	console.log("here")
+	dispatch(setLanguageLoading());
+	axios
+		.get(`${URL}/tags/alltags/${Language}`)
+		.then((result) => {
+			console.log(result.data[0]);
+			dispatch({
+				type: GET_LANGUAGE_BY_TAGS,
+				payload: result.data[0]
+			});
+		})
+		.catch((err) => {
+			dispatch({
+				type: GET_LANGUAGE_BY_TAGS,
+				payload: null
+			});
+		});
+};
+
 //set loading state
 export const setLanguageLoading = () => {
 	return {
