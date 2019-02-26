@@ -1,4 +1,4 @@
-import { GET_LANGUAGES, GET_LANGUAGE, LANGUAGE_LOADING } from '../actions/types';
+import { GET_LANGUAGE_BY_TAGS, GET_LANGUAGES, GET_LANGUAGE, LANGUAGE_LOADING } from '../actions/types';
 
 const initialState = {
 	languages: [],
@@ -26,6 +26,12 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				loading: true
+			};
+		case GET_LANGUAGE_BY_TAGS:
+			return {
+				...state,
+				language: action.payload,
+				loading: false
 			};
 		default:
 			return state;

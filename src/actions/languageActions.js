@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { URL } from './consts';
 
-import { GET_LANGUAGE, LANGUAGE_LOADING, GET_LANGUAGES } from './types';
+import { GET_LANGUAGE_BY_TAGS, GET_LANGUAGE, LANGUAGE_LOADING, GET_LANGUAGES } from './types';
 
 //gets Languages
 export const getLanguages = () => (dispatch) => {
@@ -41,10 +41,27 @@ export const getLanguage = (id) => (dispatch) => {
 		});
 };
 
+export const getTagsByLanguage = (name) => (dispatch) => {
+	dispatch(setLanguageLoading());
+	axios
+		.get(`${URL}/tags/alltags/${name}`)
+		.then((result) => {
+			dispatch({
+				type: GET_LANGUAGE_BY_TAGS,
+				payload: result.data
+			});
+		})
+		.catch((err) => {
+			dispatch({
+				type: GET_LANGUAGE_BY_TAGS,
+				payload: null
+			});
+		});
+};
+
 //set loading state
 export const setLanguageLoading = () => {
 	return {
 		type: LANGUAGE_LOADING
 	};
 };
-
