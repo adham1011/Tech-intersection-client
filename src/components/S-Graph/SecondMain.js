@@ -11,17 +11,40 @@ class SecondMain extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			text: ''
+			text: '',
+			isEmpty: true,
+			year: '2018'
 		};
 		this.selected = this.selected.bind(this);
+		this.rendertags = this.rendertags.bind(this);
 	}
+
 	selected(value) {
-		this.setState({ text: value });
+		this.setState({ text: value, isEmpty: false });
 		this.props.getTagsByLanguage(value);
+	}
+	rendertags() {
+		const a = this.props.language.year.map((obj) => {
+			return (
+				<div className="col-12">
+					<div className="col-12 text-center my-3">
+						<h4>
+							{this.state.text}
+							<button type="button" className="x-button border-0 bg-white ml-3">
+								<span>&times;</span>
+							</button>
+						</h4>
+					</div>
+					<div className="col-12">
+						<li>{obj.year}</li>
+					</div>
+				</div>
+			);
+		});
 	}
 	renderPercentage() {
 		return (
-			<div className="col-12 col-md-4 mx-auto">
+			<div className="col-12 col-md-4 mx-auto text-center">
 				<span className="dots">
 					<span />
 				</span>
@@ -30,8 +53,8 @@ class SecondMain extends Component {
 	}
 	render() {
 		const { text } = this.state;
-		var data = [].concat(this.props.language['year'])[0];
-		console.log(data);
+		// var data = [].concat(this.props.language['year'])[0];
+
 		// console.log('bla');
 		// var array = data;
 		/*message for mahmoud*/
@@ -60,8 +83,8 @@ class SecondMain extends Component {
 								placeHolder={'Write a language'}
 							/>
 						</div>
-						<div className="col-12 bg-white shadow py-4 mt-3">
-							<div className="row" />
+						<div className="col-12 bg-white shadow mt-3">
+							<div className="row">{!this.state.isEmpty && this.rendertags()}</div>
 						</div>
 					</div>
 				</div>

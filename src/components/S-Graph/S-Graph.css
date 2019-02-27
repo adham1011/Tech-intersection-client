@@ -15,3 +15,10 @@ span.dots > span {
 	background: url('./dots-full.png') no-repeat left;
 	background-size: 294px auto;
 }
+
+.x-button {
+	background: transparent;
+}
+.x-button:hover {
+	opacity: 0.5;
+}

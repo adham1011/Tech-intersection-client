@@ -31,7 +31,6 @@ class BubbleChart extends Component {
 					language.count,
 					language.count - language.years[this.props.values[0]]
 				]);
-				console.log(this.state.graphData);
 			}
 		});
 
