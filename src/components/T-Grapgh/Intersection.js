@@ -13,6 +13,8 @@ import Spinner from "../common/Spinner";
 import IntersectionSpinner from "../common/IntersectionSpinner";
 import Chart from "react-google-charts";
 import { Z_BLOCK } from "zlib";
+
+import Sticky from "react-sticky-el";
 class Intersection extends Component {
   constructor(props) {
     super(props);
@@ -259,194 +261,234 @@ class Intersection extends Component {
     }
 
     return (
-      <section className="graph-main my-5 ">
-        <div className="container shadow bg-white mb-5">
-          <div className="row " style={{ paddingBottom: 100 }}>
-            <div className="col-12 ">
-              <h2 className="text-secondry text-uppercase font-weight-bold text-center m-4">
-                SO HOW DO TAGS RELATE TO DIFFERENT PROGRAMMING LANGUAGES?{" "}
-                <span className=" textSize">🤔</span>
-              </h2>
-              <h4 className="text-secondry text-center m-4">
-                choose two languages...
-              </h4>
+      <div>
+        <section className="graph-main my-5 ">
+          <Sticky
+            style={{
+              zIndex: 2,
+              margin: "0 auto",
+              backgroundColor: "white",
+              padding: 20,
+              width: "71%",
+              borderBottom: "1px solid rgb(240, 240, 240)"
+            }}
+            className="flex_center"
+          >
+            <div style={{ display: "flex", flexDirection: "space-around" }}>
+              <div className="flex_conatiner">
+                <div>
+                  <div className="explore" style={{ marginRight: 200 }}>
+                    <div className="exploreContainer text-uppercase font-weight-bolder">
+                      {this.state.border1.tag !== ""
+                        ? "first tag"
+                        : "first tag"}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex_conatiner">
+                <div>
+                  <div className="explore" style={{ marginLeft: 200 }}>
+                    <div className="exploreContainer text-uppercase font-weight-bolder">
+                      {this.state.border2.tag !== ""
+                        ? "second tag"
+                        : "second tag"}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </Sticky>
+          <div className="container shadow bg-white mb-5">
+            <div className="row " style={{ paddingBottom: 100 }}>
+              <div className="col-12 ">
+                <h2 className="text-secondry text-uppercase font-weight-bold text-center m-4">
+                  SO HOW DO TAGS RELATE TO DIFFERENT PROGRAMMING LANGUAGES?{" "}
+                  <span className=" textSize">🤔</span>
+                </h2>
+                <h4 className="text-secondry text-center m-4">
+                  {this.state.array.length === 2
+                    ? "Intersection"
+                    : "choose two languages..."}
+                </h4>
+              </div>
+              <div
+                className={
+                  this.state.array.length === 2
+                    ? "col-4 mx-auto not_editable"
+                    : "col-4 mx-auto"
+                }
+              >
+                <AutoComplete
+                  items={this.props.languages.map(lang => lang.source)}
+                  selected={this.selected}
+                />
+              </div>
+            </div>
+            <div className="flex_conatiner">
+              {this.state.array === null
+                ? null
+                : this.state.array.map((element, index) => {
+                    return (
+                      <div className="flex_center">
+                        <div className="dialog shadow bg-black ">
+                          {element}
+                          <button
+                            href="#"
+                            className="close-thik"
+                            onClick={this.remove.bind(this, element)}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+            </div>
+            {compLoading ? (
+              <Spinner />
+            ) : (
+              <div className="flex_conatiner" style={{ minHeight: 700 }}>
+                <div className="flex_center">
+                  {Object.entries(data).length !== 0 && data.length > 1 ? (
+                    <div>
+                      <span className="none">
+                        {" "}
+                        {this.state.first === data[0].source
+                          ? (index = 0)
+                          : (index = 1)}{" "}
+                      </span>
+                      {data[index].year.map(yr => {
+                        return (
+                          <div>
+                            <div
+                              className=" h4 text-center shadow-sm year_bg"
+                              style={{ padding: 10 }}
+                            >
+                              {yr.year}
+                            </div>
+
+                            <div className="explore">
+                              <div className="exploreContainer">
+                                {yr.tags
+                                  .sort((a, b) => b.hits - a.hits)
+                                  .slice(0, 21)
+                                  .map(tag => {
+                                    return (
+                                      <div>
+                                        <div
+                                          className="card_3d card-1 "
+                                          onClick={this.addBorder1.bind(
+                                            this,
+                                            data[index].source,
+                                            tag.tag,
+                                            yr.year
+                                          )}
+                                        >
+                                          <section className="center_hero h1_lanaguage">
+                                            <h1
+                                              style={{
+                                                fontSize: 20,
+                                                fontWeight: 700
+                                              }}
+                                            >
+                                              {tag.tag}
+                                            </h1>
+                                            <h2 style={{ fontSize: 20 }}>
+                                              {tag.hits}
+                                            </h2>
+                                          </section>
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                              </div>{" "}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+                </div>
+                <div className="flex_center">
+                  {Object.entries(data).length !== 0 && data.length > 1 ? (
+                    <div>
+                      <span className="none">
+                        {this.state.second === data[1].source
+                          ? (index2 = 1)
+                          : (index2 = 0)}
+                      </span>
+                      {data[index2].year.map(yr => {
+                        return (
+                          <div>
+                            <div
+                              className=" h4 text-center shadow-sm year_bg"
+                              style={{ padding: 10 }}
+                            >
+                              {yr.year}
+                            </div>
+
+                            <div className="explore">
+                              <div className="exploreContainer">
+                                {yr.tags
+                                  .sort((a, b) => b.hits - a.hits)
+                                  .slice(0, 21)
+                                  .map(tag => {
+                                    return (
+                                      <div>
+                                        <div
+                                          className="card_3d card-1 "
+                                          onClick={this.addBorder2.bind(
+                                            this,
+                                            data[index2].source,
+                                            tag.tag,
+                                            yr.year
+                                          )}
+                                        >
+                                          <section className="center_hero h1_lanaguage">
+                                            <h1
+                                              style={{
+                                                fontSize: 20,
+                                                fontWeight: 700
+                                              }}
+                                            >
+                                              {tag.tag}
+                                            </h1>
+                                            <h2 style={{ fontSize: 20 }}>
+                                              {tag.hits}
+                                            </h2>
+                                          </section>
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                              </div>{" "}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            )}
+
             <div
               className={
-                this.state.array.length === 2
-                  ? "col-4 mx-auto not_editable"
-                  : "col-4 mx-auto"
+                this.state.modalIsOpen ||
+                (this.state.border1.tag !== "" && this.state.border2.tag !== "")
+                  ? "modal showModal"
+                  : "modal"
               }
             >
-              <AutoComplete
-                items={this.props.languages.map(lang => lang.source)}
-                selected={this.selected}
-              />
-            </div>
-          </div>
-          <div className="flex_conatiner">
-            {this.state.array === null
-              ? null
-              : this.state.array.map((element, index) => {
-                  return (
-                    <div className="flex_center">
-                      <div className="dialog shadow bg-black ">
-                        {element}
-                        <button
-                          href="#"
-                          className="close-thik"
-                          onClick={this.remove.bind(this, element)}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-          </div>
-          {compLoading ? (
-            <Spinner />
-          ) : (
-            <div className="flex_conatiner" style={{ minHeight: 700 }}>
-              <div className="flex_center">
-                {Object.entries(data).length !== 0 && data.length > 1 ? (
-                  <div>
-                    <span className="none">
-                      {" "}
-                      {this.state.first === data[0].source
-                        ? (index = 0)
-                        : (index = 1)}{" "}
-                    </span>
-                    {data[index].year.map(yr => {
-                      return (
-                        <div>
-                          <div
-                            className=" h4 text-center shadow-sm year_bg"
-                            style={{ padding: 10 }}
-                          >
-                            {yr.year}
-                          </div>
-
-                          <div className="explore">
-                            <div className="exploreContainer">
-                              {yr.tags
-                                .sort((a, b) => b.hits - a.hits)
-                                .slice(0, 21)
-                                .map(tag => {
-                                  return (
-                                    <div>
-                                      <div
-                                        className="card_3d card-1 "
-                                        onClick={this.addBorder1.bind(
-                                          this,
-                                          data[index].source,
-                                          tag.tag,
-                                          yr.year
-                                        )}
-                                      >
-                                        <section className="center_hero h1_lanaguage">
-                                          <h1
-                                            style={{
-                                              fontSize: 20,
-                                              fontWeight: 700
-                                            }}
-                                          >
-                                            {tag.tag}
-                                          </h1>
-                                          <h2 style={{ fontSize: 20 }}>
-                                            {tag.hits}
-                                          </h2>
-                                        </section>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                            </div>{" "}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : null}
-              </div>
-              <div className="flex_center">
-                {Object.entries(data).length !== 0 && data.length > 1 ? (
-                  <div>
-                    <span className="none">
-                      {this.state.second === data[1].source
-                        ? (index2 = 1)
-                        : (index2 = 0)}
-                    </span>
-                    {data[index2].year.map(yr => {
-                      return (
-                        <div>
-                          <div
-                            className=" h4 text-center shadow-sm year_bg"
-                            style={{ padding: 10 }}
-                          >
-                            {yr.year}
-                          </div>
-
-                          <div className="explore">
-                            <div className="exploreContainer">
-                              {yr.tags
-                                .sort((a, b) => b.hits - a.hits)
-                                .slice(0, 21)
-                                .map(tag => {
-                                  return (
-                                    <div>
-                                      <div
-                                        className="card_3d card-1 "
-                                        onClick={this.addBorder2.bind(
-                                          this,
-                                          data[index2].source,
-                                          tag.tag,
-                                          yr.year
-                                        )}
-                                      >
-                                        <section className="center_hero h1_lanaguage">
-                                          <h1
-                                            style={{
-                                              fontSize: 20,
-                                              fontWeight: 700
-                                            }}
-                                          >
-                                            {tag.tag}
-                                          </h1>
-                                          <h2 style={{ fontSize: 20 }}>
-                                            {tag.hits}
-                                          </h2>
-                                        </section>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                            </div>{" "}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : null}
+              <div className="modal-content">
+                <button className="close" onClick={this.closeModal.bind(this)}>
+                  close
+                </button>
+                {resultsContent}
               </div>
             </div>
-          )}
-
-          <div
-            className={
-              this.state.modalIsOpen ||
-              (this.state.border1.tag !== "" && this.state.border2.tag !== "")
-                ? "modal showModal"
-                : "modal"
-            }
-          >
-            <div className="modal-content">
-              <button className="close" onClick={this.closeModal.bind(this)}>
-                close
-              </button>
-              {resultsContent}
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     );
   }
 }
