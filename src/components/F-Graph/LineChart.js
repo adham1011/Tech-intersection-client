@@ -51,6 +51,11 @@ class LineChart extends Component {
 						vAxis: {
 							title: '# of questions'
 						},
+						animation: {
+							startup: true,
+							easing: 'linear',
+							duration: 1500
+						},
 						series: {}
 					}}
 					rootProps={{ 'data-testid': '2' }}
