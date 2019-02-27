@@ -53,7 +53,13 @@ class AutoComplete extends Component {
 		const { text } = this.state;
 		return (
 			<div>
-				<input className="form-control w-100" type="text" onChange={this.onTextChange} value={text} />
+				<input
+					className="form-control w-100"
+					type="text"
+					onChange={this.onTextChange}
+					placeholder={this.props.placeHolder}
+					value={text}
+				/>
 				{this.renderSuggestions()}
 			</div>
 		);

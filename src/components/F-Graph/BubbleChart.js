@@ -29,9 +29,9 @@ class BubbleChart extends Component {
 					language.source,
 					language.years[this.props.values[1]] - language.years[this.props.values[0]],
 					language.count,
-					language.count
+					language.count - language.years[this.props.values[0]]
 				]);
-				// console.log(this.state.graphData);
+				console.log(this.state.graphData);
 			}
 		});
 
@@ -46,11 +46,16 @@ class BubbleChart extends Component {
 					data={this.state.graphData}
 					options={{
 						title:
-							'Correlation between life expectancy, fertility rate ' +
+							'Correlation between total questions,difference increase/decrease in the questions' +
 							'and population of some world countries (2010)',
-						hAxis: { title: 'Life Expectancy' },
-						vAxis: { title: 'Fertility Rate' },
+						hAxis: { title: 'Questions Rate' },
+						vAxis: { title: 'Total Questions' },
 						colorAxis: { colors: [ '#7FB1B4', '#7B7C98', '#766A8E', '#6D4679' ] },
+						animation: {
+							startup: true,
+							easing: 'linear',
+							duration: 1500
+						},
 						bubble: { textStyle: { fontSize: 11 } }
 					}}
 					rootProps={{ 'data-testid': '1' }}

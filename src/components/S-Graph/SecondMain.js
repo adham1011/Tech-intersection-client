@@ -53,13 +53,14 @@ class SecondMain extends Component {
 								other.
 							</p>
 						</div>
-						<div className="col-4 mx-auto">
+						<div className="col-4">
 							<AutoComplete
 								items={this.props.languages.map((lang) => lang.source)}
 								selected={this.selected}
+								placeHolder={'Write a language'}
 							/>
 						</div>
-						<div className="col-12 bg-white shadow p-4 mt-3">
+						<div className="col-12 bg-white shadow py-4 mt-3">
 							<div className="row" />
 						</div>
 					</div>
