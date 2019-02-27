@@ -60,13 +60,7 @@ class SecondMain extends Component {
 							/>
 						</div>
 						<div className="col-12 bg-white shadow p-4 mt-3">
-							<div className="row">
-								<div className="col-12 col-md-4 mx-auto">
-									<span className="dots">
-										<span />
-									</span>
-								</div>
-							</div>
+							<div className="row" />
 						</div>
 					</div>
 				</div>
