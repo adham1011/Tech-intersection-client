@@ -157,7 +157,7 @@ class Intersection extends Component {
                           .map(tag => {
                             return (
 								<div >
-								<div className="card card-1 " onClick={this.addBorder1.bind(this,data[index].source,tag.tag)}>
+								<div className="card_3d card-1 " onClick={this.addBorder1.bind(this,data[index].source,tag.tag)}>
 								<section className="center_hero h1_lanaguage">
 											<h1 style={{fontSize: 20,fontWeight:700}}>{tag.tag}</h1>
 											<h2 style={{fontSize: 20}}>{tag.hits}</h2>
@@ -196,7 +196,7 @@ class Intersection extends Component {
                           .map(tag => {
                             return (
 								<div >
-								<div className="card card-1 " onClick={this.addBorder2.bind(this,data[index2].source,tag.tag)}>
+								<div className="card_3d card-1 " onClick={this.addBorder2.bind(this,data[index2].source,tag.tag)}>
 								<section className="center_hero h1_lanaguage">
 											<h1 style={{fontSize: 20,fontWeight:700}}>{tag.tag}</h1>
 											<h2 style={{fontSize: 20}}>{tag.hits}</h2>
