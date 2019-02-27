@@ -6,6 +6,9 @@ import './Fgraph.css';
 import BubbleCharts from './BubbleChart';
 import LineChart from './LineChart';
 import AutoComplete from '../AutoComplete';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getTagsByLanguage } from '../../actions/languageActions';
 
 const sliderStyle = {
 	// Give the slider some width
@@ -112,16 +115,23 @@ class Filter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			values: [ 2013, 2018 ]
+			values: [ 2013, 2018 ],
+			text: ''
 		};
-
+		this.selected = this.selected.bind(this);
 		this.onChange = this.onChange.bind(this);
 	}
 	onChange = (values) => {
 		this.setState({ values });
 	};
+	selected(value) {
+		this.setState({ text: value });
+		this.props.getTagsByLanguage(value);
+	}
 
 	render() {
+		const { text } = this.state;
+
 		return (
 			<section className="graph-main my-4">
 				<div className="container">
@@ -188,7 +198,6 @@ class Filter extends Component {
 					</div>
 					<div className="row">
 						<BubbleCharts values={this.state.values} />
-
 						<LineChart values={this.state.values} />
 					</div>
 				</div>
@@ -197,4 +206,14 @@ class Filter extends Component {
 	}
 }
 
+// Filter.propTypes = {
+// 	getTagsByLanguage: PropTypes.func.isRequired,
+// 	languages: PropTypes.array.isRequired,
+// 	language: PropTypes.object
+// };
+// const mapStatetoProps = (state) => ({
+// 	languages: state.languages.languages,
+// 	language: state.languages.language
+// });
+// export default connect(mapStatetoProps, { getTagsByLanguage })(Filter);
 export default Filter;
