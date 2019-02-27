@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTagsByLanguage } from '../../actions/languageActions';
+// import '../T-Grapgh/Intersection.css';
+import './S-Graph.css';
 
 import AutoComplete from '../AutoComplete';
 
@@ -16,6 +18,15 @@ class SecondMain extends Component {
 	selected(value) {
 		this.setState({ text: value });
 		this.props.getTagsByLanguage(value);
+	}
+	renderPercentage() {
+		return (
+			<div className="col-12 col-md-4 mx-auto">
+				<span className="dots">
+					<span />
+				</span>
+			</div>
+		);
 	}
 	render() {
 		const { text } = this.state;
@@ -47,6 +58,15 @@ class SecondMain extends Component {
 								items={this.props.languages.map((lang) => lang.source)}
 								selected={this.selected}
 							/>
+						</div>
+						<div className="col-12 bg-white shadow p-4 mt-3">
+							<div className="row">
+								<div className="col-12 col-md-4 mx-auto">
+									<span className="dots">
+										<span />
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
