@@ -83,7 +83,7 @@ export const compareLanguagesByTags = (newComp) => (dispatch) => {
 	//console.log("here")
 	dispatch(setLanguageLoading());
 	axios
-		.post(`http://localhost:3000/tags/compare`,newComp)
+		.post(`${URL}/tags/compare`,newComp)
 		.then((result) => {
 			console.log(result);
 			console.log(result.data);
