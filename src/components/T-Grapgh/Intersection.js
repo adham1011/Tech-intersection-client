@@ -3,14 +3,25 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import "./Intersection.css";
-import { getLanguageTags } from "../../actions/languageActions";
+import { getLanguageTags,removeFromComp,compareLanguagesByTags } from "../../actions/languageActions";
 import AutoComplete from "../AutoComplete";
 
 class Intersection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      array: []
+		border: false,
+      array: [],
+      first:"",
+      second:"",
+      border1:{
+        source:"",
+        tag:""
+      },
+      border2:{
+        source:"",
+        tag:""
+      }
     };
     this.selected = this.selected.bind(this);
   }
@@ -19,50 +30,66 @@ class Intersection extends Component {
       array: [...prevState.array, value]
     }));
     if (this.state.array.length === 1) {
-      //	console.log("req")
+      
       this.state.array.forEach(element => {
         this.props.getLanguageTags(element);
       });
       this.props.getLanguageTags(value);
     }
-    // console.log(this.state.array);
+    if(this.state.array.length===0)
+      this.setState({first:value})
+    else this.setState({second:value})
+  
+    this.forceUpdate();
+   
   }
   remove(element) {
-    //console.log(e)
 
+	this.props.removeFromComp(element);
+  this.setState({first:element})
+  this.setState({second:""})
     console.log(element);
     this.setState(prevState => ({
       array: prevState.array.filter(lang => lang !== element)
-    }));
-    //console.log(index);
-  }
-  render() {
-    //const { text } = this.state;
-   // var data = [].concat(this.props.language["year"])[0];
-   // let content = {};
-    // var array = data;
-    /*message for mahmoud*/
-
-    //#you can see what happening here !!! the thing is weird
-    //# you can add tags.sort((a, b) => b.hits - a.hits).slice(0,21) after the search query in service,
-	//much better than to handle this in the client, try to print (data) and you can see that u can't track it
+	}));
 	
-
-    const { language } = this.props.language;
-    let LanguageContent;
-    if (language === {} ) {
-      LanguageContent = null;
-    } else {
-     /* LanguageContent = (
-        <div>
-          <div> {language.source}</div>
-          <div> {language.count}</div>
-        </div>
-	  );
-	  */
-      console.log(this.props.language);
+    
+  }
+  addBorder1(source,tag){
+    console.log(tag)
+  this.setState({border1: {source:source, tag:tag }})
+   if(this.state.border2.tag !== "")
+   {
+    const newComp = {
+      first: this.state.border1,
+      second: this.state.border2
+    };
+      this.props.compareLanguagesByTags(newComp)
+      console.log(this.state.border2)
+   }
+  }
+  addBorder2(source,tag){
+    console.log(tag)
+    this.setState({border2: {source:source, tag:tag }})
+    if(this.state.border1.tag !== "")
+    {
+      const newComp = {
+        first: this.state.border1,
+        second: this.state.border2
+      };
+       this.props.compareLanguagesByTags(newComp)
+       console.log(this.state.border1)
     }
+  }
+  
+  render() {
+   
 
+    var data = this.props.compLanguages;
+    console.log(data);
+   
+     let index;
+     let index2;
     return (
       <section className="graph-main my-5 ">
         <div className="container shadow bg-white mb-5">
@@ -89,12 +116,13 @@ class Intersection extends Component {
               />
             </div>
           </div>
-          <div className="flex_conatiner">
+          <div className="flex_conatiner"> 
             {this.state.array === null
               ? null
               : this.state.array.map((element, index) => {
                   return (
-                    <div className="dialog shadow bg-black">
+					  <div className="flex_center">
+                    <div className="dialog shadow bg-black ">
                       {element}
                       <button
                         href="#"
@@ -102,10 +130,92 @@ class Intersection extends Component {
                         onClick={this.remove.bind(this, element)}
                       />
                     </div>
+					</div>
                   );
                 })}
           </div>
-          <div className="flex_conatiner">{LanguageContent}</div>
+          <div className="flex_conatiner">
+            <div className="flex_center">
+              {Object.entries(data).length !== 0 &&
+              	data.length >1? (
+
+                <div>
+                  {console.log(this.props.compLanguages)}
+                  
+                   
+                    {(this.state.first===data[0].source?  index=0: index=1)}
+                  {data[index].year.map(yr => {
+                    return (
+                      <div>
+                        <div className=" h4 text-center">{yr.year}</div>
+                        <div className=" h5  text-center">Tags Count: {yr.count}</div>
+						<div className="explore">
+                              <div className="exploreContainer">
+                        {yr.tags
+                          .sort((a, b) => b.hits - a.hits)
+                          .slice(0, 21)
+                          .map(tag => {
+                            return (
+								<div >
+								<div className="card card-1 " onClick={this.addBorder1.bind(this,data[index].source,tag.tag)}>
+								<section className="center_hero h1_lanaguage">
+											<h1 style={{fontSize: 20,fontWeight:700}}>{tag.tag}</h1>
+											<h2 style={{fontSize: 20}}>{tag.hits}</h2>
+										  </section>
+								</div>
+								</div>
+							
+                             
+                              
+                            );
+						  })}
+						  </div>	</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </div>
+			<div className="flex_center">
+			{Object.entries(data).length !== 0 &&
+			data.length >1
+			? (
+                <div>
+                  {console.log(this.props.compLanguages)}
+                  {(this.state.second===data[1].source?  index2=1: index2=0)}
+                  {data[index2].year.map(yr => {
+                    return (
+                      <div>
+                        <div className=" h4 text-center">{yr.year}</div>
+                        <div className=" h5  text-center">Tags Count: {yr.count}</div>
+						<div className="explore">
+                              <div className="exploreContainer">
+                        {yr.tags
+                          .sort((a, b) => b.hits - a.hits)
+                          .slice(0, 21)
+                          .map(tag => {
+                            return (
+								<div >
+								<div className="card card-1 " onClick={this.addBorder2.bind(this,data[index2].source,tag.tag)}>
+								<section className="center_hero h1_lanaguage">
+											<h1 style={{fontSize: 20,fontWeight:700}}>{tag.tag}</h1>
+											<h2 style={{fontSize: 20}}>{tag.hits}</h2>
+										  </section>
+								</div>
+								</div>
+							
+                             
+                        );
+						  })}
+						  </div>	</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : null}
+				
+			</div>
+          </div>
         </div>
       </section>
     );
@@ -114,15 +224,17 @@ class Intersection extends Component {
 Intersection.propTypes = {
   getLanguageTags: PropTypes.func.isRequired,
   languages: PropTypes.array.isRequired,
-  language: PropTypes.object
+  compLanguages: PropTypes.array,
+  removeFromComp:PropTypes.func.isRequired,
+  compareLanguagesByTags:PropTypes.func.isRequired
 };
 const mapStatetoProps = state => ({
   languages: state.languages.languages,
-  language: state.languages.language
+  compLanguages: state.languages.compLanguages
 });
 export default connect(
   mapStatetoProps,
   {
-    getLanguageTags
+    getLanguageTags,removeFromComp,compareLanguagesByTags
   }
 )(Intersection);

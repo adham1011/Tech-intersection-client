@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { URL } from './consts';
 
-import { GET_LANGUAGE_BY_TAGS, GET_LANGUAGE, LANGUAGE_LOADING, GET_LANGUAGES } from './types';
+import { GET_LANGUAGE_BY_TAGS, GET_LANGUAGE, LANGUAGE_LOADING, GET_LANGUAGES, GET_LANGUAGE_FOR_COMP,REMOVE_FROM_COMP } from './types';
 
 //gets Languages
 export const getLanguages = () => (dispatch) => {
@@ -60,25 +60,52 @@ export const getTagsByLanguage = (name) => (dispatch) => {
 };
 
 export const getLanguageTags = (Language) => (dispatch) => {
-	console.log("here")
+	//console.log("here")
 	dispatch(setLanguageLoading());
 	axios
 		.get(`${URL}/tags/alltags/${Language}`)
 		.then((result) => {
 			console.log(result.data[0]);
 			dispatch({
-				type: GET_LANGUAGE_BY_TAGS,
+				type: GET_LANGUAGE_FOR_COMP,
 				payload: result.data[0]
 			});
 		})
 		.catch((err) => {
 			dispatch({
-				type: GET_LANGUAGE_BY_TAGS,
+				type: GET_LANGUAGE_FOR_COMP,
 				payload: null
 			});
 		});
 };
 
+export const compareLanguagesByTags = (newComp) => (dispatch) => {
+	//console.log("here")
+	dispatch(setLanguageLoading());
+	axios
+		.post(`http://localhost:3000/tags/compare`,newComp)
+		.then((result) => {
+			console.log(result);
+			console.log(result.data);
+			
+		})
+		.catch((err) => {
+			console.log(err)
+		});
+};
+
+
+export const removeFromComp = (Language) => (dispatch) => {
+	//console.log("here")
+	//dispatch(setLanguageLoading());
+	
+			dispatch({
+				type: REMOVE_FROM_COMP,
+				payload: Language
+			});
+		
+		
+};
 //set loading state
 export const setLanguageLoading = () => {
 	return {

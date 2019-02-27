@@ -1,8 +1,9 @@
-import { GET_LANGUAGE_BY_TAGS, GET_LANGUAGES, GET_LANGUAGE, LANGUAGE_LOADING } from '../actions/types';
+import { GET_LANGUAGE_BY_TAGS, GET_LANGUAGES, GET_LANGUAGE, LANGUAGE_LOADING ,GET_LANGUAGE_FOR_COMP, REMOVE_FROM_COMP} from '../actions/types';
 
 const initialState = {
 	languages: [],
 	language: {},
+	compLanguages:[],
 	sum: {},
 	loading: false
 };
@@ -33,6 +34,18 @@ export default function(state = initialState, action) {
 				language: action.payload,
 				loading: false
 			};
+		case GET_LANGUAGE_FOR_COMP:
+			return {
+				...state,
+				//compLanguages:action.payload,
+				compLanguages: [...state.compLanguages,action.payload],
+				loading: false
+			};
+		case REMOVE_FROM_COMP:
+		return {
+			...state,
+			compLanguages: state.compLanguages.filter(lang => lang.source !== action.payload),
+		};
 		default:
 			return state;
 	}
