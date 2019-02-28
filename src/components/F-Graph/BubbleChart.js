@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { getLanguages } from '../../actions/languageActions';
 import { Chart } from 'react-google-charts';
+import './BubbleChart.css';
 
 class BubbleChart extends Component {
 	constructor(props) {
@@ -41,7 +42,7 @@ class BubbleChart extends Component {
 					width={'100%'}
 					height={'700px'}
 					chartType="BubbleChart"
-					loader={<div>Loading Chart</div>}
+					loader={<div className="Loading" />}
 					data={this.state.graphData}
 					options={{
 						title:
