@@ -13,11 +13,26 @@ class SecondMain extends Component {
 		this.state = {
 			text: '',
 			isEmpty: true,
-			year: '2018'
+			year: '2018',
+			selcted: [],
+			results: false
 		};
 		this.selected = this.selected.bind(this);
 		this.rendertags = this.rendertags.bind(this);
 		this.changeYear = this.changeYear.bind(this);
+		this.selectTag = this.selectTag.bind(this);
+		this.renderPercentage = this.renderPercentage.bind(this);
+	}
+	selectTag(e) {
+		let arr = this.state.selcted;
+		let item = e.target.value;
+		var newarr = arr.includes(item) ? arr.filter((i) => i != item) : [ ...arr, item ];
+
+		if (newarr.length <= 2) {
+			this.setState({
+				selcted: newarr
+			});
+		}
 	}
 
 	selected(value) {
@@ -29,7 +44,13 @@ class SecondMain extends Component {
 			.map((tag) => {
 				return (
 					<li key={tag.tag + tag.hits} className="">
-						<input className="mx-2" type="checkbox" value={tag.tag} />
+						<input
+							className="mx-2"
+							type="checkbox"
+							checked={this.state.selcted.includes(tag.tag) ? true : false}
+							value={tag.tag}
+							onChange={(e) => this.selectTag(e)}
+						/>
 						{tag.tag}
 						<span className=" mx-4 badge badge-secondary badge-pill">{tag.hits}</span>
 					</li>
@@ -49,10 +70,10 @@ class SecondMain extends Component {
 		);
 	}
 	clearLanguage() {
-		this.setState({ isEmpty: true });
+		this.setState({ isEmpty: true, selected: [], year: '2018' });
 	}
 	changeYear(e) {
-		this.setState({ year: e.target.value });
+		this.setState({ year: e.target.value, selcted: [] });
 	}
 	render() {
 		const { text } = this.state;
@@ -147,6 +168,14 @@ class SecondMain extends Component {
 							<div className="col-12 tags mt-4">
 								<ul className="">{this.rendertags(obj)}</ul>
 							</div>
+							<div className="col-12 text-center mb-4 mt-5">
+								<button
+									name="compare"
+									className={this.state.selcted.length == 2 ? 'btn btn-secondary d-inline' : 'd-none'}
+								>
+									Compare
+								</button>
+							</div>
 						</div>
 					);
 				}
@@ -174,7 +203,9 @@ class SecondMain extends Component {
 						</div>
 						<div className="col-12">
 							<div className="col-12 bg-white shadow mt-3">
-								<div className="row">{!this.state.isEmpty ? content : ''}</div>
+								<div className="row">
+									{!this.state.isEmpty ? content : this.state.results ? this.renderPercentage() : ''}
+								</div>
 							</div>
 						</div>
 					</div>

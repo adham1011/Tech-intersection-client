@@ -43,3 +43,11 @@ span.dots > span {
 .years button.active {
 	border-bottom: 2px solid;
 }
+
+button[name="compare"] {
+	-webkit-transition: opacity 0.5s ease-in;
+	-moz-transition: opacity 0.5 ease-in;
+	-ms-transition: opacity 0.5 ease-in;
+	-o-transition: opacity 0.5 ease-in;
+	transition: opacity 0.5 ease-in;
+}
