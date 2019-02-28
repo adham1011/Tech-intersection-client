@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTagsByLanguage } from '../../actions/languageActions';
+import { getTagsByLanguage, compareByYears } from '../../actions/languageActions';
 // import '../T-Grapgh/Intersection.css';
 import './S-Graph.css';
 
@@ -21,6 +21,7 @@ class SecondMain extends Component {
 		this.rendertags = this.rendertags.bind(this);
 		this.changeYear = this.changeYear.bind(this);
 		this.selectTag = this.selectTag.bind(this);
+		this.fetchResults = this.fetchResults.bind(this);
 		this.renderPercentage = this.renderPercentage.bind(this);
 	}
 	selectTag(e) {
@@ -59,7 +60,20 @@ class SecondMain extends Component {
 			.slice(0, 15);
 		return data;
 	}
-
+	fetchResults() {
+		let obj = {
+			first: {
+				source: this.state.text,
+				tag: this.state.selcted[0]
+			},
+			second: {
+				source: this.state.text,
+				tag: this.state.selcted[1]
+			},
+			year: this.state.year
+		};
+		this.props.compareByYears(obj);
+	}
 	renderPercentage() {
 		return (
 			<div className="col-12 col-md-4 mx-auto text-center">
@@ -171,6 +185,7 @@ class SecondMain extends Component {
 							<div className="col-12 text-center mb-4 mt-5">
 								<button
 									name="compare"
+									onClick={this.fetchResults}
 									className={this.state.selcted.length == 2 ? 'btn btn-secondary d-inline' : 'd-none'}
 								>
 									Compare
@@ -217,11 +232,14 @@ class SecondMain extends Component {
 
 SecondMain.propTypes = {
 	getTagsByLanguage: PropTypes.func.isRequired,
+	compareByYears: PropTypes.func.isRequired,
 	languages: PropTypes.array.isRequired,
-	language: PropTypes.object
+	language: PropTypes.object,
+	compYear: PropTypes.object
 };
 const mapStatetoProps = (state) => ({
 	languages: state.languages.languages,
-	language: state.languages.language
+	language: state.languages.language,
+	compYear: state.languages.compYear
 });
-export default connect(mapStatetoProps, { getTagsByLanguage })(SecondMain);
+export default connect(mapStatetoProps, { getTagsByLanguage, compareByYears })(SecondMain);
