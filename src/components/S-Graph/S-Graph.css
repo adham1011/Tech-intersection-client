@@ -22,3 +22,24 @@ span.dots > span {
 .x-button:hover {
 	opacity: 0.5;
 }
+
+.tags > ul {
+	list-style: none;
+	columns: 3;
+	-webkit-columns: 3;
+	-moz-columns: 3;
+}
+.tags > ul li {
+	font-size: 1.2rem;
+}
+.years button {
+	border-bottom: 2px solid #ced4da;
+}
+.years button:focus {
+	outline: 0;
+	box-shadow: none;
+}
+.years button:hover,
+.years button.active {
+	border-bottom: 2px solid;
+}
