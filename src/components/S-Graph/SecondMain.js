@@ -43,7 +43,7 @@ class SecondMain extends Component {
 		const data = obj.tags
 			.map((tag) => {
 				return (
-					<li key={tag.tag + tag.hits} className="">
+					<li key={tag.tag + tag.hits} className="my-2">
 						<input
 							className="mx-2"
 							type="checkbox"
