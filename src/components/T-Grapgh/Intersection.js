@@ -384,17 +384,27 @@ class Intersection extends Component {
                                           )}
                                         >
                                           <section className="center_hero h1_lanaguage">
-                                            <h1
-                                              style={{
-                                                fontSize: 20,
-                                                fontWeight: 700
-                                              }}
-                                            >
-                                              {tag.tag}
-                                            </h1>
-                                            <h2 style={{ fontSize: 20 }}>
-                                              {tag.hits}
-                                            </h2>
+                                            <div className="flex_1_top text-uppercase font-weight-bolder pb-2">
+                                              <h1
+                                                style={{
+                                                  fontSize: 20,
+                                                  fontWeight: 700,
+                                                  margin: 0
+                                                }}
+                                              >
+                                                {tag.tag}
+                                              </h1>
+                                            </div>
+                                            <div className="flex_1 text-uppercase font-weight-bolder">
+                                              <h2
+                                                style={{
+                                                  fontSize: 20,
+                                                  margin: 0
+                                                }}
+                                              >
+                                                {tag.hits}
+                                              </h2>
+                                            </div>
                                           </section>
                                         </div>
                                       </div>
@@ -444,17 +454,28 @@ class Intersection extends Component {
                                           )}
                                         >
                                           <section className="center_hero h1_lanaguage">
-                                            <h1
-                                              style={{
-                                                fontSize: 20,
-                                                fontWeight: 700
-                                              }}
-                                            >
-                                              {tag.tag}
-                                            </h1>
-                                            <h2 style={{ fontSize: 20 }}>
-                                              {tag.hits}
-                                            </h2>
+                                            <div className="flex_1_top m-0 text-uppercase font-weight-bolder pb-2">
+                                              {" "}
+                                              <h1
+                                                style={{
+                                                  fontSize: 20,
+                                                  fontWeight: 700,
+                                                  margin: 0
+                                                }}
+                                              >
+                                                {tag.tag}
+                                              </h1>
+                                            </div>
+                                            <div className="flex_1 m-0 text-uppercase font-weight-bolder ">
+                                              <h2
+                                                style={{
+                                                  fontSize: 20,
+                                                  margin: 0
+                                                }}
+                                              >
+                                                {tag.hits}
+                                              </h2>
+                                            </div>
                                           </section>
                                         </div>
                                       </div>
