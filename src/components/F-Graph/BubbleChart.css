@@ -1,0 +1,9 @@
+.Loading {
+	background-image: url("./Loading.gif");
+	height: 300px;
+	width: 300px;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+	margin: 0 auto;
+}

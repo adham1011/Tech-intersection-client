@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { getLanguages } from '../../actions/languageActions';
 import { Chart } from 'react-google-charts';
+import './BubbleChart.css';
 
 class BubbleChart extends Component {
 	constructor(props) {
@@ -41,12 +42,12 @@ class BubbleChart extends Component {
 					width={'100%'}
 					height={'700px'}
 					chartType="BubbleChart"
-					loader={<div>Loading Chart</div>}
+					loader={<div className="Loading" />}
 					data={this.state.graphData}
 					options={{
 						title:
-							'Correlation between total questions,difference increase/decrease in the questions' +
-							'and population of some world countries (2010)',
+							'Correlation between total questions,difference increase/decrease in the questions rate ' +
+							'',
 						hAxis: { title: 'Questions Rate' },
 						vAxis: { title: 'Total Questions' },
 						colorAxis: { colors: [ '#7FB1B4', '#7B7C98', '#766A8E', '#6D4679' ] },

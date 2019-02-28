@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './BubbleChart.css';
 
 import { Chart } from 'react-google-charts';
 
@@ -41,15 +42,15 @@ class LineChart extends Component {
 					width={'100%'}
 					height={'700px'}
 					chartType="LineChart"
-					loader={<div>Loading Chart</div>}
+					loader={<div className="Loading" />}
 					data={array}
 					options={{
-						title: ' HEEY',
+						title: 'Language popularity',
 						hAxis: {
 							title: 'Year'
 						},
 						vAxis: {
-							title: '# of questions'
+							title: 'Total questions'
 						},
 						animation: {
 							startup: true,
