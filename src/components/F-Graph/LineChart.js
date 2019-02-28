@@ -44,12 +44,12 @@ class LineChart extends Component {
 					loader={<div>Loading Chart</div>}
 					data={array}
 					options={{
-						title: ' HEEY',
+						title: 'Language popularity',
 						hAxis: {
 							title: 'Year'
 						},
 						vAxis: {
-							title: '# of questions'
+							title: 'Total questions'
 						},
 						animation: {
 							startup: true,

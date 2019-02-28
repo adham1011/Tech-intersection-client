@@ -138,6 +138,10 @@ class Filter extends Component {
 					<div className="row">
 						<div className="col-12">
 							<h6 className="text-secondry text-uppercase font-weight-bold">&Delta; By the years</h6>
+							<p>
+								The section is made to understand the change occurred to each individual language , are
+								they linked ? check the graphs
+							</p>
 						</div>
 					</div>
 					<div className="row sticky-top">
@@ -206,14 +210,4 @@ class Filter extends Component {
 	}
 }
 
-// Filter.propTypes = {
-// 	getTagsByLanguage: PropTypes.func.isRequired,
-// 	languages: PropTypes.array.isRequired,
-// 	language: PropTypes.object
-// };
-// const mapStatetoProps = (state) => ({
-// 	languages: state.languages.languages,
-// 	language: state.languages.language
-// });
-// export default connect(mapStatetoProps, { getTagsByLanguage })(Filter);
 export default Filter;

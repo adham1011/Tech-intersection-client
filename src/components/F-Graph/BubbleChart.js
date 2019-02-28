@@ -45,8 +45,8 @@ class BubbleChart extends Component {
 					data={this.state.graphData}
 					options={{
 						title:
-							'Correlation between total questions,difference increase/decrease in the questions' +
-							'and population of some world countries (2010)',
+							'Correlation between total questions,difference increase/decrease in the questions rate ' +
+							'',
 						hAxis: { title: 'Questions Rate' },
 						vAxis: { title: 'Total Questions' },
 						colorAxis: { colors: [ '#7FB1B4', '#7B7C98', '#766A8E', '#6D4679' ] },
